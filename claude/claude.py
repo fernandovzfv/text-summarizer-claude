@@ -1,10 +1,11 @@
 import reflex as rx
 from . import styles
 
-# Import all the pages.
-from .pages import *
+# Import pages explicitly
+from .pages.index import index
 
 app = rx.App(
+    routes=[index],
     style=styles.base_style,
     stylesheets=styles.base_stylesheets,
     html_lang="en",

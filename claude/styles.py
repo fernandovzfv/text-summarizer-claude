@@ -1,6 +1,6 @@
 import reflex as rx
 
-sidebar_width = ["100%", "100%", "100%", "375px", "450px"]
+sidebar_width = ["100%", "100%", "100%", "100%", "650px"]
 border = f"1.5px solid {rx.color('gray', 5, True)}"
 content_max_width = "1280px"
 sidebar_bg = rx.color("gray", 2)

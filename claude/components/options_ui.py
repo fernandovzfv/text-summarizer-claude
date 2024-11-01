@@ -55,7 +55,7 @@ def prompt_input() -> rx.Component:
     return rx.vstack(
         rx.hstack(
             rx.icon("type", size=17, color=rx.color("green", 9)),
-            rx.text("Prompt", size="3"),
+            rx.text("Text to summarize", size="3"),
             rx.spacer(),
             rx.hstack(
                 rx.cond(
@@ -77,10 +77,10 @@ def prompt_input() -> rx.Component:
                             color=rx.color("gray", 10),
                             cursor="pointer",
                             _hover={"opacity": "0.8"},
-                            on_click=OptionsState.randomize_prompt,
+                            on_click=OptionsState.randomize_text,
                         ),
                     ),
-                    content="Randomize prompt",
+                    content="Randomize text",
                 ),
                 spacing="4",
                 align="center",
@@ -93,6 +93,7 @@ def prompt_input() -> rx.Component:
             placeholder="What do you want to see?",
             width="100%",
             size="3",
+            resize="vertical",
             value=OptionsState.prompt,
             on_change=OptionsState.set_prompt,
         ),
@@ -123,7 +124,7 @@ def size_selector() -> rx.Component:
     return rx.vstack(
         rx.hstack(
             rx.icon("scan", size=17, color=rx.color("orange", 9)),
-            rx.text("Dimensions", size="3"),
+            rx.text("Summary length [words]", size="3"),
             spacing="2",
             align="center",
             width="100%",
@@ -208,28 +209,6 @@ def size_selector() -> rx.Component:
     )
 
 
-def output_selector() -> rx.Component:
-    return rx.vstack(
-        rx.hstack(
-            rx.icon("image", size=17, color=rx.color("crimson", 9)),
-            rx.text("Image count", size="3"),
-            rx.spacer(),
-            rx.text(f"{OptionsState.num_outputs}", size="3"),
-            spacing="2",
-            align="center",
-            width="100%",
-        ),
-        rx.slider(
-            min=1,
-            max=4,
-            step=1,
-            size="1",
-            default_value=OptionsState.num_outputs,
-            on_change=OptionsState.set_num_outputs,
-        ),
-        width="100%",
-    )
-
 
 def _style_preview(style_preset: list) -> rx.Component:
     return rx.cond(
@@ -275,50 +254,6 @@ def _style_preview(style_preset: list) -> rx.Component:
         ),
     )
 
-
-def style_selector() -> rx.Component:
-    return rx.vstack(
-        rx.hstack(
-            rx.icon("palette", size=17, color=rx.color("indigo", 9)),
-            rx.text(f"Style", size="3"),
-            rx.spacer(),
-            rx.cond(
-                OptionsState.selected_style,
-                rx.hstack(
-                    rx.text(f"[ {OptionsState.selected_style} ]", size="3"),
-                    rx.icon(
-                        "eraser",
-                        size=20,
-                        color=rx.color("gray", 10),
-                        cursor="pointer",
-                        _hover={"opacity": "0.8"},
-                        on_click=OptionsState.setvar("selected_style", ""),
-                    ),
-                    spacing="4",
-                    align="center",
-                ),
-            ),
-            spacing="2",
-            align="center",
-            width="100%",
-        ),
-        rx.scroll_area(
-            rx.hstack(
-                rx.foreach(
-                    OptionsState.styles_preset,
-                    _style_preview,
-                ),
-                width="100%",
-                align="center",
-                padding_bottom="15px",
-            ),
-            scrollbars="horizontal",
-            height="100%",
-            width="100%",
-            type="always",
-        ),
-        width="100%",
-    )
 
 
 def _negative_prompt() -> rx.Component:

@@ -1,7 +1,6 @@
 import reflex as rx
 import random
-from ..components.prompt_list import prompt_list
-from ..components.styles_preset import styles_preset
+from ..components.paragraph_list import paragraph_list
 
 
 class OptionsState(rx.State):
@@ -41,7 +40,6 @@ class OptionsState(rx.State):
     slider_tick: int = len(dimensions) // 2
     selected_dimensions: tuple[int, int] = dimensions[slider_tick]
     hover: bool = False
-    styles_preset: dict[str, dict[str, str]] = styles_preset
     selected_style: str = "Cinematic"
     advanced_options_open: bool = False
     # Generation options
@@ -71,14 +69,8 @@ class OptionsState(rx.State):
     def set_guidance_scale(self, value: float):
         self.guidance_scale = value[0]
 
-    def randomize_prompt(self):
-        self.prompt = random.choice(prompt_list)
-
-    @rx.var
-    def selected_style_prompt(self) -> str:
-        if self.selected_style == "":
-            return ""
-        return self.styles_preset[self.selected_style]["prompt"]
+    def randomize_text(self):
+        self.prompt = random.choice(paragraph_list)
 
     @rx.var
     def dimensions_str(self) -> str:

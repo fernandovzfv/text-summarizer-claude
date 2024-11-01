@@ -1,6 +1,6 @@
 import reflex as rx
 from .. import styles
-from ..components.options_ui import prompt_input, size_selector, output_selector, style_selector, advanced_options, generate_button
+from ..components.options_ui import prompt_input, size_selector, advanced_options, generate_button
 
 
 def mobile_ui():
@@ -9,8 +9,6 @@ def mobile_ui():
             rx.vstack(
                 prompt_input(),
                 size_selector(),
-                output_selector(),
-                style_selector(),
                 advanced_options(),
                 width="100%",
                 height="100%",
