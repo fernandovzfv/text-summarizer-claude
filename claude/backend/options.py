@@ -4,41 +4,7 @@ from ..components.paragraph_list import paragraph_list
 
 
 class OptionsState(rx.State):
-    dimensions: list[tuple[int, int]] = [
-        (1728, 576),
-        (1664, 576),
-        (1600, 640),
-        (1536, 640),
-        (1472, 704),
-        (1408, 704),
-        (1344, 704),
-        (1344, 768),
-        (1280, 768),
-        (1216, 832),
-        (1152, 832),
-        (1152, 896),
-        (1088, 896),
-        (1088, 960),
-        (1024, 960),
-        (1024, 1024),
-        (960, 1024),
-        (960, 1088),
-        (896, 1088),
-        (896, 1152),
-        (832, 1152),
-        (832, 1216),
-        (768, 1280),
-        (768, 1344),
-        (704, 1344),
-        (704, 1408),
-        (704, 1472),
-        (640, 1536),
-        (640, 1600),
-        (576, 1664),
-        (576, 1728),
-    ]
-    slider_tick: int = len(dimensions) // 2
-    selected_dimensions: tuple[int, int] = dimensions[slider_tick]
+    selected_dimensions: int = 50
     hover: bool = False
     selected_style: str = "Cinematic"
     advanced_options_open: bool = False

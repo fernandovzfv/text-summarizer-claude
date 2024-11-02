@@ -132,8 +132,8 @@ def size_selector() -> rx.Component:
         rx.vstack(
             rx.slider(
                 min=0,
-                max=(OptionsState.dimensions).length() - 1,
-                step=1,
+                max=100,
+                step=10,
                 size="1",
                 default_value=OptionsState.slider_tick,
                 on_change=OptionsState.set_tick,
