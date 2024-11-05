@@ -2,43 +2,33 @@ import reflex as rx
 from ..views.sidebar import sidebar
 from ..views.mobile_ui import mobile_ui
 from ..components.options_ui import mobile_header
-from ..backend.generation import GeneratorState, CopyLocalState, copy_script
+from ..backend.generation import SummaryState, CopyLocalState, copy_script
 from .. import styles
 
 
-def _upscale_button() -> rx.Component:
-    return rx.cond(
-        ~GeneratorState.is_upscaling,  # The ~ operator is a logical NOT operator that negates the boolean valueatorState.is_upscaling
-        rx.button(
-            rx.icon("scaling", size=20),
-            "Upscale",
-            **styles.button_props,
-            on_click=print("upscale"),
-        ),
-        rx.button(
-            rx.spinner(size="3"),
-            "Cancel",
-            **styles.button_props,
-            color_scheme="tomato",
-            on_click=print("cancel"),
-        ),
+def _download_button():
+    return rx.icon_button(
+        rx.icon("download", size=20),
+        **styles.button_props,
+        color_scheme="gray",
+        on_click=SummaryState.download_text,
     )
 
 
-def _download_button():
-    return rx.cond(
-        GeneratorState.is_downloading,
-        rx.icon_button(
-            rx.spinner(size="3"),
-            **styles.button_props,
-            color_scheme="blue",
+def _response_text():
+    return rx.box(
+        rx.text(
+            SummaryState.generated_text,
+            size="3",
         ),
-        rx.icon_button(
-            rx.icon("download", size=20),
-            **styles.button_props,
-            color_scheme="gray",
-            on_click=print("download"),
-        ),
+        width="100%",
+        height="100%",
+        display="flex",
+        align_items="center",
+        justify_content="center",
+        border=styles.border,
+        bg=rx.color("gray", 2),
+        padding="1em",
     )
 
 
@@ -59,7 +49,7 @@ def _copy_button():
             rx.icon("clipboard", size=20),
             **styles.button_props,
             color_scheme="gray",
-            on_click=[copy_script(), GeneratorState.copy_image],
+            on_click=[copy_script(), SummaryState.copy_text],
         ),
     )
 
@@ -77,13 +67,13 @@ def index():
         rx.center(
             rx.vstack(
                 rx.hstack(
-                    _upscale_button(),
                     _download_button(),
                     _copy_button(),
                     justify="end",
                     align="center",
                     width="100%",
                 ),
+                _response_text(),
                 max_width=styles.content_max_width,
                 height="100%",
                 align="center",
@@ -96,7 +86,9 @@ def index():
         mobile_ui(),
         flex_direction=["column", "column", "column", "row"],
         position="relative",
-        width="100%",
+        width="85%",
         height="100%",
         bg=rx.color("gray", 1),
+        margin="0 auto",  # Add margin auto to center horizontally
+        justify_content="center",  # Center flex items horizontally
     )

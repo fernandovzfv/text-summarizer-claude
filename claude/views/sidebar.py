@@ -4,7 +4,6 @@ from ..components.options_ui import (
     sidebar_header,
     prompt_input,
     size_selector,
-    advanced_options,
     generate_button,
 )
 
@@ -16,8 +15,9 @@ def sidebar():
             rx.flex(
                 rx.vstack(
                     prompt_input(),
+                    rx.spacer(),
+                    rx.divider(),
                     size_selector(),
-                    advanced_options(),
                     width="100%",
                     overflow_y="auto",
                     align="start",
